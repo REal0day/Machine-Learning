@@ -119,5 +119,7 @@ They're many more colors. Quick list of them all.
 Raindow, gnuplot, magma, nipy\_spectral, Greys, CMRmap  
 _It is case-sensitive. Why? Fuck if I know._
 
+**Add Colorbar to Heatmap**
+
 
 
