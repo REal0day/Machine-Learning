@@ -129,6 +129,7 @@ plt.colorbar()
 
 ![](/assets/VI17.png)
 
+**Create a Scatter Plot Graph**  
 This is matplotlib's plotting. Pandas also has their own on top ot matplots.
 
 ```py
