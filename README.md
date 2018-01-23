@@ -1,3 +1,4 @@
-# My Awesome Book
+# Complete Guide To TensorFlow for Deep Learning with Python
 
-This file file serves as your book's preface, a great place to describe your book's content and ideas.
+These are my personal notes I am creating so I can follow along, and not forget all the steps.
+
