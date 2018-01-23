@@ -121,5 +121,20 @@ _It is case-sensitive. Why? Fuck if I know._
 
 **Add Colorbar to Heatmap**
 
+```py
+mat = np.arange(0,100).reshape(10,10)
+plt.imshow(mat,cmap='coolwarm')
+plt.colorbar()
+```
 
+![](/assets/VI17.png)
+
+This is matplotlib's plotting. Pandas also has their own on top ot matplots.
+
+```py
+df = pd.read_csv('salaries.csv')
+df.plot(x='Salary', y='Age', kind='scatter')
+```
+
+![](/assets/IV18.png)
 
