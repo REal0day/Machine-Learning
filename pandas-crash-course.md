@@ -19,8 +19,6 @@ df
 | 1 | Sally | 120000 | 45 |
 | 2 | Alyssa | 80000 | 27 |
 
-
-
 **Describe Data**
 
 ```py
@@ -82,7 +80,15 @@ df[df['Salary'] > 60000]
 | 1 | Sally | 120000 | 45 |
 | 2 | Alyssa | 80000 | 27 |
 
+**Return NumPy Array**
 
+```py
+df.as_matrix()
+
+array([['John', 50000, 34],
+       ['Sally', 120000, 45],
+       ['Alyssa', 80000, 27]], dtype=object)
+```
 
 
 
