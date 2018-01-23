@@ -48,6 +48,8 @@ array([[ 0.,  0.,  0.,  0.,  0.],
 
 _They're floats, which is why there's a "."_
 
+
+
 **Return an evenly spaced set of numbers over a specified interval.**
 
 ```
@@ -58,6 +60,22 @@ Output
 
 ```
 array([ 0. ,  4.5,  9. ])
+```
+
+
+
+**Create an array of random integers**
+
+```
+np.random.randint(0,1000,(3,3))
+```
+
+Output
+
+```
+array([[321, 831, 601],
+       [729, 951, 597],
+       [389, 923, 644]])
 ```
 
 
