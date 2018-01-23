@@ -138,3 +138,23 @@ df.plot(x='Salary', y='Age', kind='scatter')
 
 ![](/assets/IV18.png)
 
+**Change aspect ratio to fit**
+
+Sometimes the ratio is a bit off...
+
+```py
+mat = np.random.randint(1,101,(100,5))
+plt.imshow(mat)
+```
+
+![](/assets/IV19.png)
+
+Let's change that w/ 'aspect'.
+
+```py
+mat = np.random.randint(1,101,(100,5))
+plt.imshow(mat,aspect='auto')
+```
+
+![](/assets/IV20.png)
+
