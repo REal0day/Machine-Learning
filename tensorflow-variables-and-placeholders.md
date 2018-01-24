@@ -1,5 +1,3 @@
-
-
 # TensorFlow
 
 They're two types of Tensor Objects
@@ -70,17 +68,31 @@ FailedPreconditionError                   Traceback (most recent call last)
    1342   def _extend_graph(self):
 
 FailedPreconditionError: Attempting to use uninitialized value Variable
-	 [[Node: _retval_Variable_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/cpu:0"](Variable)]]
-
+     [[Node: _retval_Variable_0_0 = _Retval[T=DT_FLOAT, index=0, _device="/job:localhost/replica:0/task:0/cpu:0"](Variable)]]
 ```
 
 Looks like we got a FailedPreconditionError....error. We need to initialize our variables first.
 
 **Initialize Variables**
 
-```
+```py
 init = tf.global_variables_initializer()
 sess.run(init)
+```
+
+Now let's try that again.
+
+```py
+sess.run(my_var)
+```
+
+Output
+
+```py
+array([[ 0.592013  ,  0.89125073,  0.34142447,  0.65717638],
+       [ 0.004879  ,  0.21697724,  0.34347022,  0.65173411],
+       [ 0.76730251,  0.85420251,  0.6337378 ,  0.3490752 ],
+       [ 0.39124513,  0.68798089,  0.60606647,  0.67392075]], dtype=float32)
 ```
 
 
