@@ -26,10 +26,41 @@ Output
 
 Not bad at all!
 
+---
+
 When you start TF, a default graph is created.![](/assets/Screen Shot 2018-01-23 at 5.14.12 PM.png)
 
 ```
 print(tf.get_default_graph())
+```
+
+Output
+
+```
+<tensorflow.python.framework.ops.Graph object at 0x116702550>
+```
+
+---
+
+**Create Graph Object \(empty\)**
+
+```
+g = tf.Graph()
+print(g)
+```
+
+Output
+
+```
+<tensorflow.python.framework.ops.Graph object at 0x1167b4278>
+```
+
+**Set Graph to a Variable**  
+In this first case, we will set the default graph to graph\_one.
+
+```py
+graph_one = tf.get_default_graph()
+print(graph_one)
 ```
 
 Output
