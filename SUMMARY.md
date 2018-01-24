@@ -11,4 +11,7 @@
 * [TensorFlow Graphs](tensorflow-graphs.md)
 * [TensorFlow Variables and Placeholders](tensorflow-variables-and-placeholders.md)
 * [TensorFlow - Creating a Neural Network Pt 1](tensorflow-creating-a-neural-network-pt-1.md)
+* [TensorFlow - Create a Neural Network Pt2](tensorflow-create-a-neural-network-pt2.md)
+* [Introduction to Perceptrons](introduction-to-perceptrons.md)
+* [Cost Functions](cost-functions.md)
 
