@@ -10,4 +10,5 @@
 * [TensorFlow Basic Syntax](tensorflow-basic-syntax.md)
 * [TensorFlow Graphs](tensorflow-graphs.md)
 * [TensorFlow Variables and Placeholders](tensorflow-variables-and-placeholders.md)
+* [TensorFlow - Creating a Neural Network Pt 1](tensorflow-creating-a-neural-network-pt-1.md)
 
