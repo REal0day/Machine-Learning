@@ -72,7 +72,7 @@ a = tf.placeholder(tf.float32)
 b = tf.placeholder(tf.float32)
 ```
 
-TensorFlow can understand the built-in python operators.  
+TensorFlow can understand the built-in python operators.
 
 ```py
 add_op = a + b
@@ -84,7 +84,7 @@ We must add an operation and a feed dictionary.
 
 ```py
 with tf.Session() as sess:
-    
+
     add_result = sess.run(add_op, feed_dict={a:rand_a, b:rand_b})
     print(add_result)
 ```
@@ -103,7 +103,7 @@ Sweet! Now let's run the multiplication operator.
 
 ```py
 with tf.Session() as sess:
-    
+
     add_result = sess.run((mul_op), feed_dict={a:rand_a, b:rand_b})
     print(add_result)
 ```
