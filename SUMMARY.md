@@ -6,4 +6,7 @@
 * [Data Visualization Crash Course](data-visualization-crash-course.md)
 * [SciKit-Learn Crash Course](scikit-crash-course.md)
 * Cash Course Review Exercises
+* [Manual Neural Network](manual-neural-network.md)
+* [TensorFlow Basic Syntax](tensorflow-basic-syntax.md)
+* [TensorFlow Graphs](tensorflow-graphs.md)
 
