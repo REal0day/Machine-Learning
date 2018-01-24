@@ -8,9 +8,5 @@ The steps are the following:
 2. Initiate the Session
 3. Feed Data IN and get Output
 
-Our graph will look like the following:
-
-![](/assets/Screen Shot 2018-01-23 at 5.57.30 PM.png)
-
-
+Our graph will look like the following:![](/assets/Screen Shot 2018-01-23 at 5.57.30 PM.png)
 
