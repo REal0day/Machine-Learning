@@ -6,11 +6,17 @@
 import numpy as np
 my_list = [1,2,3]
 np.array(my_list)
+```
 
+Output
+
+```
 array([1, 2, 3])
 ```
 
 _This is of type **numpy.ndarry** which stands for n-dimensional array._
+
+---
 
 **Create a range of ints in an array.**
 
