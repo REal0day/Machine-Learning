@@ -95,5 +95,31 @@ array([[ 0.592013  ,  0.89125073,  0.34142447,  0.65717638],
        [ 0.39124513,  0.68798089,  0.60606647,  0.67392075]], dtype=float32)
 ```
 
+---
+
+**Create Placeholder**
+
+```py
+ph1 = tf.placeholder(tf.float32)
+```
+
+This placeholder holds tf.type float32. We can change this to float64, and many others.  
+Let's also create the shape of the placeholder.
+
+```py
+ph2 = tf.placeholder(tf.float32, (4,4))
+```
+
+If you do not know the size of the dataset \(**m** of m x n\), you can use _None._
+
+```py
+ph3 = tf.placeholder(tf.float32, shape=(None,5))
+```
+
+# Summary
+
+1. Once you create a variable, before you can run it in your session, you need to initilize all the variables
+2. Placeholders, same thing. You need to provide a datatype.
+
 
 
