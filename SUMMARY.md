@@ -9,4 +9,5 @@
 * [Manual Neural Network](manual-neural-network.md)
 * [TensorFlow Basic Syntax](tensorflow-basic-syntax.md)
 * [TensorFlow Graphs](tensorflow-graphs.md)
+* [TensorFlow Variables and Placeholders](tensorflow-variables-and-placeholders.md)
 
