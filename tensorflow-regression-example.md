@@ -55,11 +55,11 @@ Output
 
 ```py
 X Data
-0	0.00000
-1	0.00001
-2	0.00002
-3	0.00003
-4	0.00004
+0    0.00000
+1    0.00001
+2    0.00002
+3    0.00003
+4    0.00004
 ```
 
 Now let's **concat** them both to have one frame!
@@ -67,6 +67,19 @@ Now let's **concat** them both to have one frame!
 ```
 my_data = pd.concat([x_df,y_df], axis=1)
 ```
+
+Output of my\_data.head\(\)
+
+```py
+X Data	Y
+0	0.00000	5.718261
+1	0.00001	5.000671
+2	0.00002	5.544956
+3	0.00003	5.070396
+4	0.00004	4.691148
+```
+
+_We add the axis=1 so that the data isn't stacked like a pancake!_
 
 
 
