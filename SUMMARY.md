@@ -14,4 +14,5 @@
 * [TensorFlow - Create a Neural Network Pt2](tensorflow-create-a-neural-network-pt2.md)
 * [Introduction to Perceptrons](introduction-to-perceptrons.md)
 * [Cost Functions](cost-functions.md)
+* [TensorFlow Regression Example](tensorflow-regression-example.md)
 
