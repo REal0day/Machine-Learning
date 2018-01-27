@@ -54,7 +54,7 @@ x_df.head()
 Output
 
 ```py
-X Data
+     X Data
 0    0.00000
 1    0.00001
 2    0.00002
@@ -71,15 +71,38 @@ my_data = pd.concat([x_df,y_df], axis=1)
 Output of my\_data.head\(\)
 
 ```py
-X Data	Y
-0	0.00000	5.718261
-1	0.00001	5.000671
-2	0.00002	5.544956
-3	0.00003	5.070396
-4	0.00004	4.691148
+     X Data     Y
+0    0.00000    5.718261
+1    0.00001    5.000671
+2    0.00002    5.544956
+3    0.00003    5.070396
+4    0.00004    4.691148
 ```
 
 _We add the axis=1 so that the data isn't stacked like a pancake!_
+
+Now let's say we want to graph this. Unfortunately, graphing a million plot points will take awhile.  
+Let's only graph a small random sample of 10.
+
+```py
+my_data.sample(n=10)
+```
+
+Output
+
+```py
+index	X Data		Y
+140413	1.404131	5.637388
+763166	7.631668	9.500907
+210459	2.104592	5.871338
+238403	2.384032	6.298123
+74718	0.747181	5.466532
+68900	0.689001	4.138463
+691081	6.910817	9.494513
+797712	7.977128	7.670427
+517287	5.172875	6.555583
+63754	0.637541	6.250593 
+```
 
 
 
