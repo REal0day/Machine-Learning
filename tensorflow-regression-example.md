@@ -1,5 +1,7 @@
 # TensorFlow Regression Example
 
+## Part I
+
 We will now use a more realistic regression example and introduce **tf.estimator**.
 
 It will take place in the following steps:
@@ -129,7 +131,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable    
+**Create our slope and b variable      
 **_They're random numbers._
 
 ```
@@ -186,9 +188,48 @@ with tf.Session() as sess:
 Alright, so what's happening here?  
 We're grabbing 8 random data points. **rand\_ind** grabs a random index of our data, and then put that as our xph and yph, which becomes our **feed**. Feed are two points \(x,y-true\) and it is added to the dictionary **feed{}**. We then use train to adjust errors, and set our feed-dict to begin to run our analysis. Runt his. If it takes too long, lower the number of batches.
 
+```py
+model_m
 ```
 
+```py
+0.52406013
 ```
+
+```py
+model_b
+```
+
+```py
+4.9413366
+```
+
+Set v\_hat and graph!
+
+```py
+y_hat = x_data*model_m + model_b
+my_data.sample(250).plot(kind='scatter', x='X Data', y='Y')
+plt.plot(x_data,y_hat, 'r')
+```
+
+![](/assets/plot.png)
+
+## Part II - **Estimator API**
+
+Now we will solve the regression task using the **Estimator API**.
+
+They're are lot of other higher level APIs \(Keras, Layers, etc.\) but we will conver those later on in the _Miscellaneous Section._
+
+The **tf.estimator** has many different options/types
+
+* tf.estimator.**LinearClassifier**
+  * Constructs a linear classification model
+* tf.estimator.**LinearRegressor**
+  * Constructs a linear regression model
+* tf.estimator.**DNNClassifer**
+  * Construct a neural network classification model
+* tf.estimator.**DNNRegressor**
+  * Constructs a neural network regression model
 
 
 
