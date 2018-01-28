@@ -1,7 +1,16 @@
 # TensorFlow Regression Example
 
-We will now use a more realistic regression example and introduce **tf.estimator**.  
-Let's start with our imports.
+We will now use a more realistic regression example and introduce **tf.estimator**.
+
+It will take place in the following steps:
+
+1. Get Data
+2. Create Variables
+3. Create Placeholders
+4. Define Graph \(Set operations being taken\)
+5. Initialize global objects
+
+Let's start with our imports
 
 ```py
 import numpy as np
@@ -51,8 +60,6 @@ Now let's check the first five entries of x\_df
 x_df.head()
 ```
 
-Output
-
 ```py
      X Data
 0    0.00000
@@ -91,17 +98,84 @@ my_data.sample(n=10)
 Output
 
 ```py
-index	X Data		Y
-140413	1.404131	5.637388
-763166	7.631668	9.500907
-210459	2.104592	5.871338
-238403	2.384032	6.298123
-74718	0.747181	5.466532
-68900	0.689001	4.138463
-691081	6.910817	9.494513
-797712	7.977128	7.670427
-517287	5.172875	6.555583
-63754	0.637541	6.250593 
+index    X Data        Y
+140413    1.404131    5.637388
+763166    7.631668    9.500907
+210459    2.104592    5.871338
+238403    2.384032    6.298123
+74718    0.747181    5.466532
+68900    0.689001    4.138463
+691081    6.910817    9.494513
+797712    7.977128    7.670427
+517287    5.172875    6.555583
+63754    0.637541    6.250593
+```
+
+**Create a scatter plot w/ 250 values**
+
+```py
+my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
+```
+
+![](/assets/cp1.png)
+
+Now let's use TensorFlow to train this model. Now, we can't run 1M of points at a time, we have to create **batches** of data. They're no true right or wrong answer for batch\_sizes. It depends on your data.
+
+```py
+batch_size = 8
+```
+
+**Create our slope and b variable  
+**_They're random numbers._
+
+```
+m = tf.Variable(0.3)
+b = tf.Variable(0.11)
+```
+
+**Create our placeholders**. 1 for x and 1 for y.  
+Don't forget to set the data type and the size of the batch.
+
+```py
+xph = tf.placeholder(tf.float32, [batch_size])
+yph = tf.placeholder(tf.float32, [batch_size])
+```
+
+_Remember yph is the _**True**_ answer._
+
+**Define our model**
+
+```py
+y_model = m*xph + b
+```
+
+Great! Now let's **Create our error**.
+
+```py
+error = tf.reduce_sum(tf.square(yph - y_model))
+```
+
+Now for our **Gradient Descent Optimizer** and create a train variable using our optimizer on error.=
+
+```py
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
+train = optimizer.minimize(error)
+```
+
+Almost done! Just need to initialize our global variables, then run our analysis!
+
+```py
+init = tf.global_variables_initializer()
+```
+
+```
+with tf.Session() as sess:
+    sess.run(init)
+    batches = 1000
+    for i in range(batches):
+        rand_ind = np.random.randint(len(x_data), size=batch_size)
+        feed = {xph:x_data[rand_ind], yph:y_true[rand_int]}
+        sess.run(train, feed_dict = feed)
 ```
 
 
