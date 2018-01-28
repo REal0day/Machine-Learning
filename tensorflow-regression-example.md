@@ -131,7 +131,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable      
+**Create our slope and b variable        
 **_They're random numbers._
 
 ```
@@ -230,6 +230,23 @@ The **tf.estimator** has many different options/types
   * Construct a neural network classification model
 * tf.estimator.**DNNRegressor**
   * Constructs a neural network regression model
+* tf.estimator.**DNNLinearCombinedClassifer**
+  * Constructs a neural network and linear combined classification
+* tf.estimator.**DNNLinearCombinedRegressor**
+  * Constructs a neural network and linear combined regression model
+
+To use the Estimator API:
+
+1. Define a list of feature columns
+2. Create the Estimator Model
+3. Create a Data Input Function
+4. Call train\(\), eval\(\), and predict\(\) on the estimator object.
+
+Let's get started
+
+```py
+feat_cols = [ tf.feature_column.numeric_column('x', shape=[1]) ]
+```
 
 
 
