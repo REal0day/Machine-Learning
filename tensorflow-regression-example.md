@@ -131,7 +131,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable          
+**Create our slope and b variable            
 **_They're random numbers._
 
 ```
@@ -242,10 +242,57 @@ To use the Estimator API:
 3. Create a Data Input Function
 4. Call train\(\), eval\(\), and predict\(\) on the estimator object.
 
-Let's get started
+### **Creating the feature columns list for the Estimator**
 
 ```py
 feat_cols = [ tf.feature_column.numeric_column('x', shape=[1]) ]
+```
+
+Now we setup our estimator. This is the main part of the API. We will do a LinearRegressor and point to the feature columns. We will see more complex examples with multiple featuresl.
+
+```py
+estimator = tf.estimator.LinearRegressor(feature_columns=feat_cols)
+```
+
+_There will be an output, but it's just default configuration stuff._
+
+### Create training and evaluation variables \(70%,30%\)
+
+We are splitting up the data into a training set and an evaluation set. We set the test\_size to 0.3 aka 30% of an evaluation size and 70% of a test size.
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_eval, y_train, y_eval = train_test_split(x_data, y_true, test_size=0.3, random_state=101)
+```
+
+Let's see if we got what we wanted
+
+```py
+print(x_train.shape)
+print(x_eval.shape)
+```
+
+```py
+(700000,)
+(300000,)
+```
+
+70% of 1M is 700,000, so it has appeared to work.
+
+### Setup a Estimator Inputs
+
+You need to have a n input function that kinda acts like your feed dictionary and batch_size_ indicator all at once. We will be inputing from an nump array.** You can also send in pandas array! **We then define a dictionary of **'x' key** to the values of **xtrain**,  then **y\_train** as the 
+
+```py
+input_func = tf.estimator.inputs.numpy_input_fn({'x':x_train}, y_train, batch_size=8, num_epochs=None, shuffle=True)
+```
+
+Let's copy and paste this to get 2 more variables, **train\_input\_func, **and ** eval\_input\_func.**
+
+```py
+train_input_func = input_func = tf.estimator.inputs.numpy_input_fn({'x':x_train}, y_train, batch_size=8, num_epochs=None, shuffle=True)
+eval_input_func = input_func = tf.estimator.inputs.numpy_input_fn({'x':x_train}, y_train, batch_size=8, num_epochs=None, shuffle=True)
 ```
 
 
