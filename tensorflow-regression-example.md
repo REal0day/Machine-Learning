@@ -4,11 +4,15 @@ We will now use a more realistic regression example and introduce **tf.estimator
 
 It will take place in the following steps:
 
-1. Get Data
+1. Collect Data
 2. Create Variables
 3. Create Placeholders
-4. Define Graph \(Set operations being taken\)
-5. Initialize global objects
+4. Define operations in your Graph \(Set operations being taken\)
+5. Define error or loss function
+6. setup trainer
+7. Initialize global objects
+8. If big dataset:
+   1. Create batches
 
 Let's start with our imports
 
@@ -125,7 +129,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable  
+**Create our slope and b variable    
 **_They're random numbers._
 
 ```
@@ -168,7 +172,7 @@ Almost done! Just need to initialize our global variables, then run our analysis
 init = tf.global_variables_initializer()
 ```
 
-```
+```py
 with tf.Session() as sess:
     sess.run(init)
     batches = 1000
@@ -176,6 +180,14 @@ with tf.Session() as sess:
         rand_ind = np.random.randint(len(x_data), size=batch_size)
         feed = {xph:x_data[rand_ind], yph:y_true[rand_int]}
         sess.run(train, feed_dict = feed)
+    model_m, model_b = sess.run([m,b])
+```
+
+Alright, so what's happening here?  
+We're grabbing 8 random data points. **rand\_ind** grabs a random index of our data, and then put that as our xph and yph, which becomes our **feed**. Feed are two points \(x,y-true\) and it is added to the dictionary **feed{}**. We then use train to adjust errors, and set our feed-dict to begin to run our analysis. Runt his. If it takes too long, lower the number of batches.
+
+```
+
 ```
 
 
