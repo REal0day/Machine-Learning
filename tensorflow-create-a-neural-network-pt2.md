@@ -106,7 +106,7 @@ array([ 0.39254011,  0.74493691,  0.76194526,  4.35999157,  4.09925768,
         5.71055309,  7.29828109,  8.30361433,  9.47258288,  9.5273703 ])
 ```
 
-Awesome! Let's plot our points. We will use 'g' for green and '\*' for \*s. 
+Awesome! Let's plot our points. We will use 'g' for green and '\*' for \*s.
 
 ```py
 import matplotlib.pyplot as plt
@@ -138,9 +138,9 @@ x = tf.cast(m, tf.float32)
 b = tf.cast(m, tf.float32)
 
 for x,y in zip(x_data,y_label):
-    
+
     y_hat = m*x + b
-    
+
     error += (y-y_hat)**2
 ```
 
@@ -160,13 +160,13 @@ Perfect! Now we just need to intilize the global variables and run our model! Le
 
 ```py
 with tf.Session() as sess:
-    
+
     sess.run(init)
     training_steps = 1
-    
+
     for i in range(training_steps):
         sess.run(train)
-    
+
     final_slope , final_intercept = sess.run([m,b])
 ```
 
@@ -191,10 +191,10 @@ As we can see it looks pretty damn good. But let's see if we can't make it bette
 with tf.Session() as sess:    
     sess.run(init)
     training_steps = 100
-    
+
     for i in range(training_steps):    
         sess.run(train)
-    
+
     final_slope , final_intercept = sess.run([m,b])
 
 # With 100 training steps
@@ -214,6 +214,4 @@ That's better! Maybe it's hard to see the difference though. Let me create a gra
 ![](/assets/Both.png)
 
 _The green is the line that had been trained 100x and the blue line had been trained once._
-
-
 

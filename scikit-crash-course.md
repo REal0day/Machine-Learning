@@ -42,7 +42,7 @@ sklearn.preprocessing.data.MinMaxScaler
 ```
 
 Now let's fit and transform the our data.  
-This normalizes our data from range \(0,1\). This can also be adjusted.
+This **normalizes** our data from range \(0,1\). This can also be adjusted.
 
 ```py
 scaler_model.fit(data)
@@ -85,17 +85,17 @@ mydata = np.random.randint(0,101,(50,4))
 data = pd.DataFrame(data=mydata)
 data
 
-	0	1	2	3
-0	95	79	45	76
-1	0	50	85	20
-2	15	5	23	65
-3	38	92	37	39
-4	16	42	56	74
-5	46	4	61	21
-6	48	31	31	70
-7	14	34	47	33
-8	89	74	62	78
-9	76	46	63	54
+    0    1    2    3
+0    95    79    45    76
+1    0    50    85    20
+2    15    5    23    65
+3    38    92    37    39
+4    16    42    56    74
+5    46    4    61    21
+6    48    31    31    70
+7    14    34    47    33
+8    89    74    62    78
+9    76    46    63    54
 ---snip---
 ```
 
@@ -105,18 +105,18 @@ data
 df = pd.DataFrame(data=mydata,columns = ['f1', 'f2', 'f3', 'label'])
 df
 
-	f1	f2	f3	label
-0	93	94	79	40
-1	12	96	62	28
-2	90	97	67	62
-3	88	65	27	56
-4	3	92	9	46
-5	29	82	98	74
-6	52	40	72	91
-7	67	19	55	51
-8	3	78	92	50
-9	87	53	60	45
-10	91	60	44	90
+    f1    f2    f3    label
+0    93    94    79    40
+1    12    96    62    28
+2    90    97    67    62
+3    88    65    27    56
+4    3    92    9    46
+5    29    82    98    74
+6    52    40    72    91
+7    67    19    55    51
+8    3    78    92    50
+9    87    53    60    45
+10    91    60    44    90
 ---snip---
 ```
 
@@ -126,18 +126,18 @@ df
 X = df[['f1', 'f2', 'f3']]
 X
 
-	f1	f2	f3
-0	93	94	79
-1	12	96	62
-2	90	97	67
-3	88	65	27
-4	3	92	9
-5	29	82	98
-6	52	40	72
-7	67	19	55
-8	3	78	92
-9	87	53	60
-10	91	60	44
+    f1    f2    f3
+0    93    94    79
+1    12    96    62
+2    90    97    67
+3    88    65    27
+4    3    92    9
+5    29    82    98
+6    52    40    72
+7    67    19    55
+8    3    78    92
+9    87    53    60
+10    91    60    44
 --snip--
 ```
 
@@ -163,9 +163,9 @@ y
 
 **Split Training Matrix**
 
-To get an example of train\_test_split is to type it out, then press SHIFT+TAB, TAB.  
-  
-_Here is the train set.
+To get an example of train\_test\_split is to type it out, then press SHIFT+TAB, TAB.
+
+\_Here is the train set.
 
 ```
 from sklearn.model_selection import train_test_split
@@ -183,7 +183,5 @@ X_test.shape
 (15, 3)
 ```
 
-Once we have the neural network model working in TensorFlow, and we want to do some training process on supervised learning, we would feed it in the training sets for X-train and y-train, and the model would then try to predict how it got the results of y-train.The model would try to build some sort of understanding. Once we have that, we can evlaute that by feeding it the X-Test data, and try to predict. We can then check to see how close they are to the actual values of y. That's the reason for the train\_test\_split\(\). 
-
-
+Once we have the neural network model working in TensorFlow, and we want to do some training process on supervised learning, we would feed it in the training sets for X-train and y-train, and the model would then try to predict how it got the results of y-train.The model would try to build some sort of understanding. Once we have that, we can evlaute that by feeding it the X-Test data, and try to predict. We can then check to see how close they are to the actual values of y. That's the reason for the train\_test\_split\(\).
 

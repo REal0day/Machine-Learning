@@ -131,7 +131,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable        
+**Create our slope and b variable          
 **_They're random numbers._
 
 ```
