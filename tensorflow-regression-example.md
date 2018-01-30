@@ -131,7 +131,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable              
+**Create our slope and b variable                
 **_They're random numbers._
 
 ```
@@ -373,7 +373,9 @@ INFO:tensorflow:Finished evaluation at 2018-01-29-00:01:34
 INFO:tensorflow:Saving dict for global step 1000: average_loss = 1.06595, global_step = 1000, loss = 8.52763
 ```
 
-Now let's print both metrics and see if they're close. this will let us know if we are overfitting to our data.A good indicator is when you havea realy low loss, but high on th eval data. We want them to be close to each other. Preferably not e these two metrics to be as cval perfroms worse than train\_set. **If training metrics is way higher, but lower. than eval, then you're overfitting.**
+Now let's print both metrics and see if they're close. this will let us know if we are overfitting to our data.A good indicator is when you have a really low loss on training data metrics, but high on th eval data. We want them to be close to each other. Preferably not e these two metrics to be as cval perfroms worse than train\_set. **If training metrics is way higher, but lower. than eval, then you're overfitting.**
+
+**Overfitting**: **VERY** **low** loss train\_metrics **&& VERY HIGH** loss of eval\_metrics
 
 ```py
 print('TRAINING DATA METRICS')
@@ -395,5 +397,85 @@ EVAL METRICS
 {'average_loss': 1.0659537, 'global_step': 1000, 'loss': 8.5276299}
 ```
 
+### Predict y with New Values/Data
 
+Let's say we have some new data of X. These are 10 points that the model has never seen before.
+
+```py
+brand_new_data = np.linspace(0,10,10)
+```
+
+Now let's create a new input function that predicts y, given the new data, using the TensorFlow Estimator.
+
+```py
+input_fn_predict = tf.estimator.inputs.numpy_input_fn({'x':brand_new_data}, shuffle=False)
+```
+
+We have our input function to predict. So now we put this in.
+
+```py
+input_fn_predict = tf.estimator.inputs.numpy_input_fn({'x':brand_new_data}, shuffle=False)
+```
+
+```py
+<generator object Estimator.predict at 0x12d0f22b0>
+```
+
+To actually view the results, cast it as type list.
+
+```py
+list(estimator.predict(input_fn=input_fn_predict))
+```
+
+```py
+[{'predictions': array([ 4.43565083], dtype=float32)},
+ {'predictions': array([ 5.09498167], dtype=float32)},
+ {'predictions': array([ 5.75431252], dtype=float32)},
+ {'predictions': array([ 6.41364384], dtype=float32)},
+ {'predictions': array([ 7.07297468], dtype=float32)},
+ {'predictions': array([ 7.73230553], dtype=float32)},
+ {'predictions': array([ 8.39163589], dtype=float32)},
+ {'predictions': array([ 9.05096722], dtype=float32)},
+ {'predictions': array([ 9.71029854], dtype=float32)},
+ {'predictions': array([ 10.36962891], dtype=float32)}]
+```
+
+Use the estimator to predict the outcome of all the X values. Save it as a list variable called predictions.
+
+```py
+predictions = []
+
+for pred in estimator.predict(input_fn=input_fn_predict):
+    predictions.append(pred['predictions'])
+```
+
+```
+predictions
+```
+
+```py
+[array([ 4.43565083], dtype=float32),
+ array([ 5.09498167], dtype=float32),
+ array([ 5.75431252], dtype=float32),
+ array([ 6.41364384], dtype=float32),
+ array([ 7.07297468], dtype=float32),
+ array([ 7.73230553], dtype=float32),
+ array([ 8.39163589], dtype=float32),
+ array([ 9.05096722], dtype=float32),
+ array([ 9.71029854], dtype=float32),
+ array([ 10.36962891], dtype=float32)]
+```
+
+Plot data sample of 250 items
+
+```py
+my_data.sample(n=250).plot(kind='scatter', x='X Data', y='Y')
+plt.plot(brand_new_data, predictions, 'r*')
+```
+
+![](/assets/import11.png)
+
+Straight line looks like this:
+
+![](/assets/im123port.png)
 
