@@ -166,24 +166,21 @@ X_data.head()
 ```
 
 ```py
-	Number_pregnant	Glucose_concentration	Blood_pressure	Triceps	Insulin	BMI	Pedigree	Age	Group
-0	0.352941	0.743719	0.590164	0.353535	0.000000	0.500745	0.234415	50	B
-1	0.058824	0.427136	0.540984	0.292929	0.000000	0.396423	0.116567	31	C
-2	0.470588	0.919598	0.524590	0.000000	0.000000	0.347243	0.253629	32	B
-3	0.058824	0.447236	0.540984	0.232323	0.111111	0.418778	0.038002	21	B
-4	0.000000	0.688442	0.327869	0.353535	0.198582	0.642325	0.943638	33	C
+    Number_pregnant    Glucose_concentration    Blood_pressure    Triceps    Insulin    BMI    Pedigree    Age    Group
+0    0.352941    0.743719    0.590164    0.353535    0.000000    0.500745    0.234415    50    B
+1    0.058824    0.427136    0.540984    0.292929    0.000000    0.396423    0.116567    31    C
+2    0.470588    0.919598    0.524590    0.000000    0.000000    0.347243    0.253629    32    B
+3    0.058824    0.447236    0.540984    0.232323    0.111111    0.418778    0.038002    21    B
+4    0.000000    0.688442    0.327869    0.353535    0.198582    0.642325    0.943638    33    C
 ```
 
-_Now we have everything, excluding our 'Class' colum_n  
-
+\_Now we have everything, excluding our 'Class' colum\_n
 
 #### Get our y-label
 
 ```py
 labels = diabetes['Class']
 ```
-
-
 
 **ProTip**: Auto-complete the function and then press \[SHIFT\] + \[TAB\] + \[TAB\] and copy the params.
 
@@ -270,7 +267,7 @@ INFO:tensorflow:Finished evaluation at 2018-01-30-07:06:31
 INFO:tensorflow:Saving dict for global step 1000: accuracy = 0.727273, accuracy_baseline = 0.649351, auc = 0.799712, auc_precision_recall = 0.635924, average_loss = 0.527243, global_step = 1000, label/mean = 0.350649, loss = 5.07471, prediction/mean = 0.348325
 ```
 
-Now we have our results! The best case is for an _ROC Curve_ of &gt; 0.90 aka 90%. This does depends on what your needs are. 
+Now we have our results! The best case is for an _ROC Curve_ of &gt; 0.90 aka 90%. This does depends on what your needs are.
 
 ![](/assets/roccomp.jpg)
 
@@ -319,6 +316,34 @@ Now predictions is of type generator. So to save our results, let's set it to a 
 my_pred = list(predictions)
 my_pred
 ```
+
+```py
+[{'class_ids': array([1]),
+  'classes': array([b'1'], dtype=object),
+  'logistic': array([ 0.51357734], dtype=float32),
+  'logits': array([ 0.05432272], dtype=float32),
+  'probabilities': array([ 0.48642266,  0.51357734], dtype=float32)},
+ {'class_ids': array([1]),
+  'classes': array([b'1'], dtype=object),
+  'logistic': array([ 0.59563601], dtype=float32),
+  'logits': array([ 0.38731456], dtype=float32),
+  'probabilities': array([ 0.4043639 ,  0.59563601], dtype=float32)},
+ {'class_ids': array([0]),
+  'classes': array([b'0'], dtype=object),
+  'logistic': array([ 0.3654128], dtype=float32),
+  'logits': array([-0.55194706], dtype=float32),
+  'probabilities': array([ 0.63458717,  0.36541277], dtype=float32)}
+  ---snip---
+```
+
+As you can see with the first item in this dictionary, the class\_ids has the array\(1\). This means the model has classified the person of having diabetes.
+
+```py
+class_ids': array([1]),
+  'classes': array([b'1'], dtype=object)
+```
+
+We can see the probability that the person has diabetes here:
 
 ```
 
