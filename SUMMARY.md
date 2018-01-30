@@ -15,4 +15,5 @@
 * [Introduction to Perceptrons](introduction-to-perceptrons.md)
 * [Cost Functions](cost-functions.md)
 * [TensorFlow Regression Example](tensorflow-regression-example.md)
+* [TensorFlow Classification Example](tensorflow-classification-example.md)
 
