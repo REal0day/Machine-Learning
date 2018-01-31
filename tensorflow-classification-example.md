@@ -436,5 +436,85 @@ Again, this will take our X\_data, and check to see if it can predict the output
 dnn_model.evaluate(eval_input_func)
 ```
 
+```py
+WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+WARNING:tensorflow:Casting <dtype: 'float32'> labels to bool.
+INFO:tensorflow:Starting evaluation at 2018-01-31-00:07:29
+INFO:tensorflow:Restoring parameters from /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmpr4am2vdj/model.ckpt-1000
+INFO:tensorflow:Finished evaluation at 2018-01-31-00:07:31
+INFO:tensorflow:Saving dict for global step 1000: accuracy = 0.728346, accuracy_baseline = 0.65748, auc = 0.790144, auc_precision_recall = 0.63273, average_loss = 0.520272, global_step = 1000, label/mean = 0.34252, loss = 5.08265, prediction/mean = 0.336591-
+---snip---
+{'accuracy': 0.72834647,
+ 'accuracy_baseline': 0.65748036,
+ 'auc': 0.79014391,
+ 'auc_precision_recall': 0.63273042,
+ 'average_loss': 0.5202716,
+ 'global_step': 1000,
+ 'label/mean': 0.34251967,
+ 'loss': 5.0826535,
+ 'prediction/mean': 0.33659098}
+```
 
+We can try to increase the neurons in the hidden layers to see if we can get a better level of accuracy.
+
+```py
+dnn_model = tf.estimator.DNNClassifier(hidden_units=[20,20,20],feature_columns=feat_cols,n_classes=2)
+```
+
+Train time
+
+```py
+dnn_model.train(input_fn=input_func,steps=1000)
+```
+
+Eval time
+
+```py
+dnn_model.evaluate(eval_input_func)
+```
+
+```py
+{'accuracy': 0.70866144,
+ 'accuracy_baseline': 0.65748036,
+ 'auc': 0.79358524,
+ 'auc_precision_recall': 0.62722367,
+ 'average_loss': 0.53591853,
+ 'global_step': 1000,
+ 'label/mean': 0.34251967,
+ 'loss': 5.2355118,
+ 'prediction/mean': 0.38641998}
+```
+
+...wat? Our results indicate it was worse. I'm going to increase the epoch to see if that helps. Maybe it didn't have enough time to get a good level of accuracy, given the number of neurons.
+
+```py
+input_func = tf.estimator.inputs.pandas_input_fn(x=X_train,y=y_train,batch_size=10,num_epochs=2500,shuffle=True)
+dnn_model = tf.estimator.DNNClassifier(hidden_units=[20,20,20],feature_columns=feat_cols,n_classes=2)
+dnn_model.train(input_fn=input_func,steps=1000)
+eval_input_func = tf.estimator.inputs.pandas_input_fn(
+      x=X_test,
+      y=y_test,
+      batch_size=10,
+      num_epochs=1,
+      shuffle=False)
+dnn_model.evaluate(eval_input_func)      
+```
+
+```py
+{'accuracy': 0.74409449,
+ 'accuracy_baseline': 0.65748036,
+ 'auc': 0.79688907,
+ 'auc_precision_recall': 0.64370602,
+ 'average_loss': 0.52519315,
+ 'global_step': 1000,
+ 'label/mean': 0.34251967,
+ 'loss': 5.130733,
+ 'prediction/mean': 0.31303018}
+```
+
+Alright so much better! We increased our accuracy by 2% from our highest point!
+
+\(epoch=1000, DNN\[10,10,10\], 72.83%\)  
+\(epoch=1000, DNN\[15,15,15\], 70.87%\)  
+\(epoch=2000, DNN\[10,10,10\], 74.41%\)
 
