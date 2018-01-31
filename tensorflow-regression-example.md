@@ -4,6 +4,8 @@
 
 We will now use a more realistic regression example and introduce **tf.estimator**.
 
+, su
+
 It will take place in the following steps:
 
 1. **Collect Data & Create Variables**
@@ -11,10 +13,11 @@ It will take place in the following steps:
    2. **y\_labels** = All answers of those values after calculations
 2. **Splice X\_data into X\_train and X\_test**
    1. **X\_train** will be used as values to train your model. After, it will be evaluated with **X\_test**, and will receive a percentage of accuracy in terms of how well it performed/how close the values from **X\_test** were to their corresponding **y\_labels**
-3. **Scale the Feature Data**
+3. **Scale the Feature Data**  
    1. Use sklearn preprocessing to create a MinMaxScaler for the feature data. **Fit this scaler only to the training data**. Then use it to transform X\_test and X\_train. Then use the scaled X\_test and X\_train along with pd.Dataframe to re-create two dataframes of scaled data.
 
-   2. **Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
+   1. **Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
+
 4. **Create Placeholders**
 5. **Define operations in your Graph \(Set operations being taken\)**
 6. **Define error or loss function**
@@ -138,7 +141,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable                    
+**Create our slope and b variable                      
 **_They're random numbers._
 
 ```
@@ -424,9 +427,17 @@ We have our input function to predict. So now we put this in.
 input_fn_predict = tf.estimator.inputs.numpy_input_fn({'x':brand_new_data}, shuffle=False)
 ```
 
+Another way to do this is:
+
 ```py
-<generator object Estimator.predict at 0x12d0f22b0>
+predict_input_func = tf.estimator.inputs.pandas_input_fn(
+      x=X_test,
+      batch_size=10,
+      num_epochs=1,
+      shuffle=False)
 ```
+
+
 
 To actually view the results, cast it as type list.
 

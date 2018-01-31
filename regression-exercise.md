@@ -28,25 +28,25 @@ from sklearn import preprocessing
 #### Open CSV as a pandas DataFrame
 
 ```py
-houses = pd.read_csv('cal_housing_clean.csv')
+housing = pd.read_csv('cal_housing_clean.csv')
 ```
 
 #### Create X\_data without y\_labels
 
 ```py
-X_data = houses.drop('medianHouseValue', axis=1)
+x_data = housing.drop(['medianHouseValue'],axis=1)
 ```
 
 #### Create y\_labels
 
 ```py
-y_labels = houses['medianHouseValue']
+y_val = housing['medianHouseValue']
 ```
 
 #### Split X\_Data and create X\_train\(70%\) and X\_test\(30%\)
 
 ```py
-X_train, X_test, y_train, y_test = train_test_split(X_data, y_labels, test_size=0.3,random_state=101)
+X_train, X_test, y_train, y_test = train_test_split(x_data,y_val,test_size=0.3,random_state=101)
 ```
 
 _Applied random\_state but that's option. _
@@ -54,16 +54,15 @@ _Applied random\_state but that's option. _
 #### Describe your Data
 
 ```py
-X_data.describe()
+housing.describe().transpose()
 ```
 
 ```py
-    housingMedianAge    totalRooms    totalBedrooms    population    households    medianIncome
-count    20640.000000    20640.000000    20640.000000    20640.000000    20640.000000    20640.000000
-mean    28.639486    2635.763081    537.898014    1425.476744    499.539680    3.870671
-std    12.585558    2181.615252    421.247906    1132.462122    382.329753    1.899822
-min    1.000000    2.000000    1.000000    3.000000    1.000000    0.499900
-25%    18.000000    1447.750000    295.000000    787.000000    280.000000    2.563400
+count    mean    std    min    25%    50%    75%    max
+housingMedianAge    20640.0    28.639486    12.585558    1.0000    18.0000    29.0000    37.00000    52.0000
+totalRooms    20640.0    2635.763081    2181.615252    2.0000    1447.7500    2127.0000    3148.00000    39320.0000
+totalBedrooms    20640.0    537.898014    421.247906    1.0000    295.0000    435.0000    647.00000    6445.0000
+population    20640.0    1425.476744    1132.462122    3.0000    787.0000    1166.0000    1725.00000    35682.0000
 ---snip---
 ```
 
@@ -81,7 +80,8 @@ scaler_model = MinMaxScaler()
 **Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
 
 ```py
-trained_scaler = scaler_model.fit(X_train)
+scaler = MinMaxScaler()
+scaler.fit(X_train)
 ```
 
 #### Create pd DataFrame for both Scaler X\_train and Scaler X\_test
@@ -89,16 +89,80 @@ trained_scaler = scaler_model.fit(X_train)
 This isn't making the scaler of these matrices into our Model. Only X\_train has been fitted into our model.
 
 ```py
-scaled_X_train = scaler_model.transform(X_train)
-pdscaled_X_train = pd.DataFrame(data=scaled_X_train)
-
-scaled_X_test = scaler_model.transform(X_test)
-pdscaled_X_test = pd.DataFrame(data=scaled_X_test)
+X_train = pd.DataFrame(data=scaler.transform(X_train),columns = X_train.columns,index=X_train.index)
+X_test = pd.DataFrame(data=scaler.transform(X_test),columns = X_test.columns,index=X_test.index)
 ```
 
 ## Create Feature Columns
 
+**View all Columns**
 
+```py
+housing.columns
+```
+
+Create the necessary** tf.feature\_column** objects for the **estimator**. They should all be trated as **continuous numeric\_columns**.
+
+```py
+age = tf.feature_column.numeric_column('housingMedianAge')
+rooms = tf.feature_column.numeric_column('totalRooms')
+bedrooms = tf.feature_column.numeric_column('totalBedrooms')
+pop = tf.feature_column.numeric_column('population')
+households = tf.feature_column.numeric_column('households')
+income = tf.feature_column.numeric_column('medianIncome')
+
+feat_cols = [ age,rooms,bedrooms,pop,households,income]
+```
+
+**Create the input function** for the **estimator object**. \(play around with batch\_size and num\_epochs\)
+
+```py
+input_func = tf.estimator.inputs.pandas_input_fn(x=X_train,y=y_train ,batch_size=10,num_epochs=1000,
+                                            shuffle=True)
+```
+
+**Create the Estimator Model.** Use a **DNNRegressor**. Play around with the hidden units!
+
+```py
+model = tf.estimator.DNNRegressor(hidden_units=[6,6,6],feature_columns=feat_cols)
+```
+
+#### **Train Model**
+
+```py
+model.train(input_fn=input_func,steps=25000)
+```
+
+#### Get values for prediction
+
+```py
+predict_input_func = tf.estimator.inputs.pandas_input_fn(
+      x=X_test,
+      batch_size=10,
+      num_epochs=1,
+      shuffle=False)
+
+pred_gen = model.predict(predict_input_func)
+predictions = list(pred_gen)
+```
+
+#### Calculate the RMSE
+
+You can do this manually or use sklearn.metrics like so.
+
+```
+final_preds = []
+for pred in predictions:
+    final_preds.append(pred['predictions'])
+```
+
+```
+from sklearn.metrics import mean_squared_error
+```
+
+```
+mean_squared_error(y_test,final_preds)**0.5
+```
 
 
 
