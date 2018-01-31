@@ -7,7 +7,7 @@ Using this for pre-processing
 
 **Imports**
 
-```
+```py
 from sklearn.preprocessing import MinMaxScaler
 ```
 
@@ -36,9 +36,6 @@ If we want to run this into a neural networks, we need to scale the data. We wil
 
 ```py
 scaler_model = MinMaxScaler()
-type(scaler_model)
-
-sklearn.preprocessing.data.MinMaxScaler
 ```
 
 Now let's fit and transform the our data.  
@@ -47,7 +44,9 @@ This **normalizes** our data from range \(0,1\). This can also be adjusted.
 ```py
 scaler_model.fit(data)
 scaler_model.transform(data)
+```
 
+```py
 array([[ 0.50617284,  0.69736842],
        [ 0.08641975,  0.5       ],
        [ 0.        ,  0.17105263],
@@ -64,7 +63,9 @@ One can also do this in one command
 
 ```py
 scaler_model.fit_transform(data)
+```
 
+```py
 array([[ 0.50617284,  0.69736842],
        [ 0.08641975,  0.5       ],
        [ 0.        ,  0.17105263],

@@ -345,9 +345,98 @@ class_ids': array([1]),
 
 We can see the probability that the person has diabetes here:
 
+```py
+---snip---
+'probabilities': array([ 0.48642266,  0.51357734], dtype=float32)
 ```
 
+### Dense Neural Network \(DNN\) Classifier
+
+#### Create our DNN Model
+
+Sets how many layers you want. You set a nueral per layer. \[10,10,10\] == 10 neurons in 3 layers, and they're all connected to each other.
+
+```py
+dnn_model = tf.estimator.DNNClassifier(hidden_units=[10,10,10],feature_columns=feat_cols,n_classes=2)
 ```
+
+#### Create our embedded group column
+
+ We must put our columns in an embedded column. Set dimension to 4, as we have 4 classifications. "A", "B", "C", "D".
+
+```py
+embedded_group_column = tf.feature_column.embedding_column(assigned_group, dimension=4)
+```
+
+#### Create our features column
+
+```py
+feat_cols = [num_preg, plasma_gluc, dias_press, tricep, insulin, bmi, diabetes_pedigree, embedded_group_column, age_buckets]
+```
+
+_Just like we did before, but we change the **assigned\_group** with the **embedded\_group **_
+
+#### Create our Input Function
+
+```py
+input_func = tf.estimator.inputs.pandas_input_fn(X_train, y_train, batch_size=10, num_epochs=1000, shuffle=True)
+```
+
+#### Create our DNN Model
+
+```py
+dnn_model = tf.estimator.DNNClassifier(hidden_units=[10,10,10], feature_columns=feat_cols, n_classes=2)
+```
+
+```py
+INFO:tensorflow:Using default config.
+WARNING:tensorflow:Using temporary folder as model directory: /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmpr4am2vdj
+INFO:tensorflow:Using config: {'_tf_random_seed': 1, '_session_config': None, '_save_checkpoints_steps': None, '_save_summary_steps': 100, '_save_checkpoints_secs': 600, '_log_step_count_steps': 100, '_keep_checkpoint_every_n_hours': 10000, '_keep_checkpoint_max': 5, '_model_dir': '/var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmpr4am2vdj'}
+```
+
+#### Train our DNN Model
+
+```py
+dnn_model.train(input_fn=input_func,steps=1000)
+```
+
+```py
+INFO:tensorflow:Create CheckpointSaverHook.
+INFO:tensorflow:Saving checkpoints for 1 into /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmpr4am2vdj/model.ckpt.
+INFO:tensorflow:step = 1, loss = 13.0735
+INFO:tensorflow:global_step/sec: 190.77
+INFO:tensorflow:step = 101, loss = 5.25569 (0.526 sec)
+INFO:tensorflow:global_step/sec: 225.397
+---snip---
+INFO:tensorflow:step = 901, loss = 8.17106 (0.406 sec)
+INFO:tensorflow:Saving checkpoints for 1000 into /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmpr4am2vdj/model.ckpt.
+INFO:tensorflow:Loss for final step: 3.94409.
+Out[50]:
+<tensorflow.python.estimator.canned.dnn.DNNClassifier at 0x1092c6b70>
+```
+
+#### Create our Evaluation function to test our model
+
+```py
+eval_input_func = tf.estimator.inputs.pandas_input_fn(
+      x=X_test,
+      y=y_test,
+      batch_size=10,
+      num_epochs=1,
+      shuffle=False)
+```
+
+Now let's test it!
+
+#### Evaluated our Model with eval data
+
+Again, this will take our X\_data, and check to see if it can predict the output y-label.
+
+```py
+dnn_model.evaluate(eval_input_func)
+```
+
+
 
 
 
