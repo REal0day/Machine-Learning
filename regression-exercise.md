@@ -69,6 +69,35 @@ min    1.000000    2.000000    1.000000    3.000000    1.000000    0.499900
 
 ## Scale the Feature Data
 
+#### Create Scaler Model to normailze the data \[0,1\]
+
+```py
+from sklearn.preprocessing import MinMaxScaler
+scaler_model = MinMaxScaler()
+```
+
+#### Fit Scaler Model with X\_train Data
+
+**Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
+
+```py
+trained_scaler = scaler_model.fit(X_train)
+```
+
+#### Create pd DataFrame for both Scaler X\_train and Scaler X\_test
+
+This isn't making the scaler of these matrices into our Model. Only X\_train has been fitted into our model.
+
+```py
+scaled_X_train = scaler_model.transform(X_train)
+pdscaled_X_train = pd.DataFrame(data=scaled_X_train)
+
+scaled_X_test = scaler_model.transform(X_test)
+pdscaled_X_test = pd.DataFrame(data=scaled_X_test)
+```
+
+## Create Feature Columns
+
 
 
 
