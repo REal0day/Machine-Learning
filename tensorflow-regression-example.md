@@ -6,15 +6,18 @@ We will now use a more realistic regression example and introduce **tf.estimator
 
 It will take place in the following steps:
 
-1. Collect Data
-2. Create Variables
-3. Create Placeholders
-4. Define operations in your Graph \(Set operations being taken\)
-5. Define error or loss function
-6. setup trainer
-7. Initialize global objects
+1. **Collect Data & Create Variables**
+   1. **X\_data** = All values to be used for calculations
+   2. **y\_labels** = All answers of those values after calculations
+2. **Splice X\_data into X\_train and X\_test**
+   1. **X\_train** will be used as values to train your model. After, it will be evaluated with **X\_test**, and will receive a percentage of accuracy in terms of how well it performed/how close the values from **X\_test** were to their corresponding **y\_labels**
+3. **Create Placeholders**
+4. **Define operations in your Graph \(Set operations being taken\)**
+5. **Define error or loss function**
+6. **Setup Trainer**
+7. **Initialize global objects**
 8. If big dataset:
-   1. Create batches
+   1. **Create batches**
 
 Let's start with our imports
 
@@ -131,7 +134,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable                
+**Create our slope and b variable                  
 **_They're random numbers._
 
 ```
