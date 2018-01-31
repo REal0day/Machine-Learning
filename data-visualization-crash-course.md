@@ -159,3 +159,34 @@ plt.imshow(mat,aspect='auto')
 
 ![](/assets/IV20.png)
 
+---
+
+## Additional Notes
+
+#### Open CSV and plot
+
+```py
+import pandas as pd
+%matplotlib inline
+df = pd.read_csv('bww7dQtum100.csv')
+
+df.plot(x='date', y='close', label="Qtum")
+```
+
+![](/assets/qtum0.png)
+
+#### Plot Two Goals
+
+```py
+fig, ax = plt.subplots()
+for key, grp in df.groupby(['snapID']):
+    ax = grp.plot(ax=ax, kind='line', x='date', y='close', c='b', label=key)
+
+plt.legend(loc='best')
+plt.show()
+```
+
+![](/assets/twoGoals.png)
+
+
+

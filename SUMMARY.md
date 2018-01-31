@@ -17,4 +17,5 @@
 * [Regression Example](tensorflow-regression-example.md)
 * [Classification Example](tensorflow-classification-example.md)
 * [Regression Exercise](regression-exercise.md)
+* [Classification Exercise](classification-exercise.md)
 
