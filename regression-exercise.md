@@ -12,10 +12,18 @@ It will take place in the following steps:
 
    1. **Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
 
-4. 
+## The Data
 
+#### Imports
 
-
+```py
+import pandas as pd
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+%matplotlib inline
+```
 
 #### Open CSV as a pandas DataFrame
 
@@ -50,14 +58,18 @@ X_data.describe()
 ```
 
 ```py
-	housingMedianAge	totalRooms	totalBedrooms	population	households	medianIncome
-count	20640.000000	20640.000000	20640.000000	20640.000000	20640.000000	20640.000000
-mean	28.639486	2635.763081	537.898014	1425.476744	499.539680	3.870671
-std	12.585558	2181.615252	421.247906	1132.462122	382.329753	1.899822
-min	1.000000	2.000000	1.000000	3.000000	1.000000	0.499900
-25%	18.000000	1447.750000	295.000000	787.000000	280.000000	2.563400
+    housingMedianAge    totalRooms    totalBedrooms    population    households    medianIncome
+count    20640.000000    20640.000000    20640.000000    20640.000000    20640.000000    20640.000000
+mean    28.639486    2635.763081    537.898014    1425.476744    499.539680    3.870671
+std    12.585558    2181.615252    421.247906    1132.462122    382.329753    1.899822
+min    1.000000    2.000000    1.000000    3.000000    1.000000    0.499900
+25%    18.000000    1447.750000    295.000000    787.000000    280.000000    2.563400
 ---snip---
 ```
+
+## Scale the Feature Data
+
+
 
 
 
