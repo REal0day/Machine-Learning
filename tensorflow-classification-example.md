@@ -461,13 +461,13 @@ We can try to increase the neurons in the hidden layers to see if we can get a b
 dnn_model = tf.estimator.DNNClassifier(hidden_units=[20,20,20],feature_columns=feat_cols,n_classes=2)
 ```
 
-Train time
+#### Train Time
 
 ```py
 dnn_model.train(input_fn=input_func,steps=1000)
 ```
 
-Eval time
+#### Eval Time
 
 ```py
 dnn_model.evaluate(eval_input_func)
@@ -497,7 +497,7 @@ eval_input_func = tf.estimator.inputs.pandas_input_fn(
       batch_size=10,
       num_epochs=1,
       shuffle=False)
-dnn_model.evaluate(eval_input_func)      
+dnn_model.evaluate(eval_input_func)
 ```
 
 ```py

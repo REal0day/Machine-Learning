@@ -16,4 +16,5 @@
 * [Cost Functions](cost-functions.md)
 * [TensorFlow Regression Example](tensorflow-regression-example.md)
 * [TensorFlow Classification Example](tensorflow-classification-example.md)
+* [Regression Exercise](regression-exercise.md)
 

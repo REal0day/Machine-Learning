@@ -11,12 +11,16 @@ It will take place in the following steps:
    2. **y\_labels** = All answers of those values after calculations
 2. **Splice X\_data into X\_train and X\_test**
    1. **X\_train** will be used as values to train your model. After, it will be evaluated with **X\_test**, and will receive a percentage of accuracy in terms of how well it performed/how close the values from **X\_test** were to their corresponding **y\_labels**
-3. **Create Placeholders**
-4. **Define operations in your Graph \(Set operations being taken\)**
-5. **Define error or loss function**
-6. **Setup Trainer**
-7. **Initialize global objects**
-8. If big dataset:
+3. **Scale the Feature Data**
+   1. Use sklearn preprocessing to create a MinMaxScaler for the feature data. **Fit this scaler only to the training data**. Then use it to transform X\_test and X\_train. Then use the scaled X\_test and X\_train along with pd.Dataframe to re-create two dataframes of scaled data.
+
+   2. **Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
+4. **Create Placeholders**
+5. **Define operations in your Graph \(Set operations being taken\)**
+6. **Define error or loss function**
+7. **Setup Trainer**
+8. **Initialize global objects**
+9. If big dataset:
    1. **Create batches**
 
 Let's start with our imports
@@ -134,7 +138,7 @@ Now let's use TensorFlow to train this model. Now, we can't run 1M of points at 
 batch_size = 8
 ```
 
-**Create our slope and b variable                  
+**Create our slope and b variable                    
 **_They're random numbers._
 
 ```
