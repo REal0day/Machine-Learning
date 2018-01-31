@@ -122,9 +122,9 @@ What we can do, is while we're defining it, we can say pass in the key, and prov
 assigned_group = tf.feature_column.categorical_column_with_vocabulary_list('Group',['A','B','C','D'])
 ```
 
-The important thing to note is that you won't always have a convenient list of categories. For example\) Has all the countries in the world. We can handle this with a hashbucket
+#### Hash Bucketing
 
-#### Hach Bucketing
+The important thing to note is that you won't always have a convenient list of categories. For example\) Has all the countries in the world. We can handle this with a hashbucket
 
 ```py
 assigned_group2 = tf.feature_column.categorical_column_with_hash_bucket('Groups',hash_bucket_size=10)
@@ -156,7 +156,7 @@ Now let's make a list of all the feature columns
 feat_cols = [num_preg,plasma_gluc,dias_press,tricep,insulin,bmi,diabetes_pedigree,assigned_group,age_bucket]
 ```
 
-#### Train Test
+#### Create variable for Train Test
 
 Splice our X data and y-label
 
@@ -184,7 +184,7 @@ labels = diabetes['Class']
 
 **ProTip**: Auto-complete the function and then press \[SHIFT\] + \[TAB\] + \[TAB\] and copy the params.
 
-#### Train Data![](/assets/Screen Shot 2018-01-29 at 10.54.07 PM.png)
+#### Create variable for Train Dataset![](/assets/Screen Shot 2018-01-29 at 10.54.07 PM.png)
 
 ```py
 X_train, X_test, y_train, y_test = train_test_split(X_data, labels, test_size=0.3,random_state=101)
@@ -300,7 +300,7 @@ results
 Looks like our accuracy is 72.72%.  
 Let's get some predictions out of this.
 
-#### Have our model create Predictions
+#### Have our Model Create Predictions
 
 ```py
 pred_input_func = tf.estimator.inputs.pandas_input_fn(x=X_test, batch_size=10,num_epochs=1,shuffle=False)
@@ -362,7 +362,7 @@ dnn_model = tf.estimator.DNNClassifier(hidden_units=[10,10,10],feature_columns=f
 
 #### Create our embedded group column
 
- We must put our columns in an embedded column. Set dimension to 4, as we have 4 classifications. "A", "B", "C", "D".
+We must put our columns in an embedded column. Set dimension to 4, as we have 4 classifications. "A", "B", "C", "D".
 
 ```py
 embedded_group_column = tf.feature_column.embedding_column(assigned_group, dimension=4)
@@ -435,8 +435,6 @@ Again, this will take our X\_data, and check to see if it can predict the output
 ```py
 dnn_model.evaluate(eval_input_func)
 ```
-
-
 
 
 
