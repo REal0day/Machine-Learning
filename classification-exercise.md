@@ -173,5 +173,24 @@ input_func = tf.estimator.inputs.pandas_input_fn(x=X_train, y=y_train, batch_siz
 model = tf.estimator.LinearClassifier(feature_columns=feat_cols)
 ```
 
+## Train Model
+
+```py
+model.train(input_fn=input_func, steps=10000)
+```
+
+```py
+INFO:tensorflow:Create CheckpointSaverHook.
+INFO:tensorflow:Saving checkpoints for 1 into /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmp9a13fl5n/model.ckpt.
+INFO:tensorflow:loss = 6.93147, step = 1
+INFO:tensorflow:global_step/sec: 91.6553
+INFO:tensorflow:loss = 787.469, step = 101 (1.091 sec)
+---snip---
+INFO:tensorflow:Saving checkpoints for 10000 into /var/folders/3v/vpv_7q_95dj_87nc7vkrf88h0000gn/T/tmp9a13fl5n/model.ckpt.
+INFO:tensorflow:Loss for final step: 18.6546.
+Out[43]:
+<tensorflow.python.estimator.canned.linear.LinearClassifier at 0x1236e4e10>
+```
+
 
 
