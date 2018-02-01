@@ -21,4 +21,6 @@
 * [Saving and Restoring Models](saving-and-restoring-models.md)
 * [Intro to Convolutional Neural Networks](intro-to-convolutional-neural-networks.md)
 * [MNIST](mnist.md)
+* [Recurrent Neural Networks](recurrent-neural-networks.md)
+* [Manually Create a RNN w/ TF](manually-create-a-rnn-w-tf.md)
 
