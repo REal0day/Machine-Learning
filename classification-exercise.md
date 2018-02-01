@@ -18,12 +18,6 @@ For categoriaal you can use hashbucket or vocab list. \(Use Hashbucket for this 
 
 Use a Linear Classifier
 
-
-
-
-
-
-
 #### The Data
 
 ```py
@@ -63,13 +57,12 @@ census.head()
 ```
 
 ```py
-
-age	workclass	education	education_num	marital_status	occupation	relationship	race	gender	capital_gain	capital_loss	hours_per_week	native_country	income_bracket
-0	39	State-gov	Bachelors	13	Never-married	Adm-clerical	Not-in-family	White	Male	2174	0	40	United-States	0
-1	50	Self-emp-not-inc	Bachelors	13	Married-civ-spouse	Exec-managerial	Husband	White	Male	0	0	13	United-States	0
-2	38	Private	HS-grad	9	Divorced	Handlers-cleaners	Not-in-family	White	Male	0	0	40	United-States	0
-3	53	Private	11th	7	Married-civ-spouse	Handlers-cleaners	Husband	Black	Male	0	0	40	United-States	0
-4	28	Private	Bachelors	13	Married-civ-spouse	Prof-specialty	Wife	Black	Female	0	0	40	Cuba	0
+age    workclass    education    education_num    marital_status    occupation    relationship    race    gender    capital_gain    capital_loss    hours_per_week    native_country    income_bracket
+0    39    State-gov    Bachelors    13    Never-married    Adm-clerical    Not-in-family    White    Male    2174    0    40    United-States    0
+1    50    Self-emp-not-inc    Bachelors    13    Married-civ-spouse    Exec-managerial    Husband    White    Male    0    0    13    United-States    0
+2    38    Private    HS-grad    9    Divorced    Handlers-cleaners    Not-in-family    White    Male    0    0    40    United-States    0
+3    53    Private    11th    7    Married-civ-spouse    Handlers-cleaners    Husband    Black    Male    0    0    40    United-States    0
+4    28    Private    Bachelors    13    Married-civ-spouse    Prof-specialty    Wife    Black    Female    0    0    40    Cuba    0
 ```
 
 ### Perform a Train Test Split on the Data {#Perform-a-Train-Test-Split-on-the-Data}
@@ -126,8 +119,8 @@ Now let's do this with a **hash bucket**.
 occupation = tf.feature_column.categorical_column_with_hash_bucket("occupation", hash_bucket_size=1000)
 ```
 
-This will make _up to** **1,000 occupations if needed.  
-_Let's continue to do the same with the rest of the categorical columns.
+This will make \_up to** **1,000 occupations if needed.  
+\_Let's continue to do the same with the rest of the categorical columns.
 
 ```
 workclass, martial_status, relationshi, race, native_country
@@ -138,7 +131,7 @@ Repeat
 ```py
 occupation = tf.feature_column.categorical_column_with_hash_bucket("occupation", hash_bucket_size=1000)
 workc = tf.feature_column.categorical_column_with_hash_bucket("workclass", hash_bucket_size=1000)
-chains = tf.feature_column.categorical_column_with_hash_bucket("martial_status", hash_bucket_size=1000)
+chains = tf.feature_column.categorical_column_with_hash_bucket("marital_status", hash_bucket_size=1000)
 relationship = tf.feature_column.categorical_column_with_hash_bucket("relationship", hash_bucket_size=1000)
 race = tf.feature_column.categorical_column_with_hash_bucket("race", hash_bucket_size=1000)
 home = tf.feature_column.categorical_column_with_hash_bucket("native_country", hash_bucket_size=1000)
@@ -160,10 +153,24 @@ hrs = tf.feature_column.numeric_column('hours_per_week')
 
 #### Create a feature list of both of them!
 
-Put them in the same order as your df. Just for it too look nice. 
+Put them in the same order as your df. Just for it too look nice.
 
 ```py
 feat_cols = [age, workc, hrtoy, edu, chains, occupation, relationship, race, gender, gain, loss, hrs, home]
+```
+
+## Create Input Function
+
+Batch TF UP!
+
+```py
+input_func = tf.estimator.inputs.pandas_input_fn(x=X_train, y=y_train, batch_size=10, num_epochs=1000, shuffle=True)
+```
+
+## Create Model
+
+```py
+model = tf.estimator.LinearClassifier(feature_columns=feat_cols)
 ```
 
 
