@@ -8,8 +8,6 @@ Examples
 * Car Trajectories
 * Music
 
-
-
 Let's imagine a sequence:
 
 * \[1,2,3,4,5,6\]
@@ -30,17 +28,25 @@ Each neuron has 2 inputs. previous and data.
 * RNN Layer with 3 Neurons![](/assets/Screen Shot 2018-02-01 at 3.09.41 AM.png)
 
 * **Sequence --&gt; Sequence **
+
   * \[1,2,3,4,5,6\]
 
   * \[2.3.4.5.6.7\]
+
 * **Sequence --&gt; Vector**
+
   * Did you like his music?
     no.
 
   ![](/assets/Screen Shot 2018-02-01 at 3.12.27 AM.png)
 
 * **Vector --&gt; Sequence**
+
   * Send in an image, and receive a caption. Auto generating text. Picture of guy on beach. Text says, "Guy on beach."
+
+```
+
+```
 
 
 
