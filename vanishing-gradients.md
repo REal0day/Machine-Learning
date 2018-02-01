@@ -8,17 +8,28 @@ The opposite can also occur gradients explode on the way back, causing issues.
 
 Why do the vanishing gradients happen in relations to the activation choice?
 
+## Activation Functions
+
 Some of the typical activation functions \(like **sigmoid**\), we have this curvative that goes from \(0,1\)
 
 ![](/assets/Screen Shot 2018-02-01 at 4.08.18 AM.png)
 
 Issue is that if you put a huge number, it'll be very close to 0 or 1. It will change the gradient exponetially with n as you get more layers, while the front layers change very slowly.
 
-You can solve this by using different activation functions.**ReLu** won't saturate large positive values. Although, with negative values, it'll be 0. 
+You can solve this by using different activation functions.**ReLu** won't saturate large positive values. Although, with negative values, it'll be 0.
 
 ![](/assets/Screen Shot 2018-02-01 at 4.08.03 AM.png)
 
 There's the **Leeky** **ReLU** which will handle lower values past 0.
 
-![](/assets/Screen Shot 2018-02-01 at 4.08.29 AM.png)
+![](/assets/Screen Shot 2018-02-01 at 4.08.29 AM.png)**Exponential Linear Units \(ELU\)**  
+Another one that solves the vanishing gradient problem.![](/assets/Screen Shot 2018-02-01 at 4.20.35 AM.png)
+
+## B**atch Normalization**
+
+Your model will normalize each batch using the batch mean and standard division.
+
+**Gradient Clipping**: Gradients are cut off before reaching a predeterminded limit \(eg. anything past -1 and 1.\)
+
+
 
