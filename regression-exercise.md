@@ -77,7 +77,7 @@ scaler_model = MinMaxScaler()
 
 #### Fit Scaler Model with X\_train Data
 
-**Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train.
+**Remember!!: DO NOT USE THE SCALER ON THE X\_train data. **When you test your model, you don't want it believing it'll have more data...such as X\_train. We use **scaler.fit\(\)** to scale our data from \[0,1\]. This can be changed as well.
 
 ```py
 scaler = MinMaxScaler()
@@ -86,7 +86,7 @@ scaler.fit(X_train)
 
 #### Create pd DataFrame for both Scaler X\_train and Scaler X\_test
 
-This isn't making the scaler of these matrices into our Model. Only X\_train has been fitted into our model.
+This isn't making the scaler of these matrices into our Model. Only X\_train has been fitted into our model. We pass** scaler.transform\(X\_train\)** into **pd.DataFrame** so we receive a pandas Dataframe. Otherwise it'll be a numpy array.
 
 ```py
 X_train = pd.DataFrame(data=scaler.transform(X_train),columns = X_train.columns,index=X_train.index)
