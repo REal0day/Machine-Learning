@@ -194,7 +194,78 @@ Out[43]:
 
 ## Prediction vs. Evaluation
 
-The difference between running a prediction or evaluation comes here. When we create our input function, we can choose to set y=y\_test. If we do, we have an evaluation of the model. If we don't, we have a prediction of the model. Let's do a prediction. 
+**Create a prediction input function. Remember to only supprt X\_test data and keep shuffle=False.**
 
+The difference between running a prediction or evaluation comes here. When we create our input function, we can choose to set y=y\_test. If we do, we have an evaluation of the model. If we don't, we have a prediction of the model. Let's do a prediction.
 
+```py
+pred_fn = tf.estimator.inputs.pandas_input_fn(x=X_test, batch_size=len(X_test), shuffle=False)
+```
+
+**\[ ! \] A evaluation function would look like this. \(haven't ran this, but DID have an error with predict\_fnc when I had epochs=1000. I've removed it since then, and the predict function works. \[ ! \]**
+
+```py
+eval_input_func = tf.estimator.inputs.pandas_input_fn(x=X_test, y=y_test, batch_size=10,num_epochs=1000, shuffle=False)
+```
+
+## Create Prediction Generator
+
+**Use model.predict\(\) and pass in your input function. This will produce a generator of predictions, which you can then transform into a list, with list\(\)**
+
+```py
+pred_gen = model.predict(pred_fn)
+```
+
+Now let's create a list of predictions that were fed into the model.
+
+```py
+predictions = list(pred_gen)
+predictions
+```
+
+```py
+[{'class_ids': array([0]),
+  'classes': array([b'0'], dtype=object),
+  'logistic': array([ 0.34654751], dtype=float32),
+  'logits': array([-0.63424993], dtype=float32),
+  'probabilities': array([ 0.65345252,  0.34654751], dtype=float32)},
+```
+
+**Create a list of only the class\_ids key values from the prediction list of dictionaries, these are the predictions you will use to compare against the real y\_test values.**
+
+Let's grab the output of the predicitions.
+
+```py
+final_preds = [pred['class_ids'][0] for pred in predictions]
+final_preds
+```
+
+```py
+[0,
+ 0,
+ 1,
+ 0,
+ 1,...
+```
+
+**Import classification\_report from sklearn.metrics and then see if you can figure out how to use it to easily get a full report of your model's performance on the test data.**
+
+```py
+from sklearn.metrics import classification_report
+```
+
+```py
+print(classification_report(y_test, final_preds))
+```
+
+```py
+             precision    recall  f1-score   support
+
+          0       0.92      0.85      0.88      7436
+          1       0.62      0.75      0.68      2333
+
+avg / total       0.84      0.83      0.83      9769
+```
+
+84% precision. Not bad.
 
