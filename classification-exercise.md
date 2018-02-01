@@ -192,5 +192,9 @@ Out[43]:
 <tensorflow.python.estimator.canned.linear.LinearClassifier at 0x1236e4e10>
 ```
 
+## Prediction vs. Evaluation
+
+The difference between running a prediction or evaluation comes here. When we create our input function, we can choose to set y=y\_test. If we do, we have an evaluation of the model. If we don't, we have a prediction of the model. Let's do a prediction. 
+
 
 
