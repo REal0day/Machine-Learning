@@ -18,4 +18,5 @@
 * [Classification Example](tensorflow-classification-example.md)
 * [Regression Exercise](regression-exercise.md)
 * [Classification Exercise](classification-exercise.md)
+* [Saving and Restoring Models](saving-and-restoring-models.md)
 
