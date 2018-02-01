@@ -23,4 +23,5 @@
 * [MNIST](mnist.md)
 * [Recurrent Neural Networks](recurrent-neural-networks.md)
 * [Manually Create a RNN w/ TF](manually-create-a-rnn-w-tf.md)
+* [Vanishing Gradients](vanishing-gradients.md)
 
