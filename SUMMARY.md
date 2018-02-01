@@ -19,4 +19,5 @@
 * [Regression Exercise](regression-exercise.md)
 * [Classification Exercise](classification-exercise.md)
 * [Saving and Restoring Models](saving-and-restoring-models.md)
+* [Intro to Convolutional Neural Networks](intro-to-convolutional-neural-networks.md)
 
