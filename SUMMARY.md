@@ -26,4 +26,5 @@
 * [Vanishing Gradients](vanishing-gradients.md)
 * [LSTM and GRU](lstm-and-gru.md)
 * [RNN with TF](rrn-with-tf.md)
+* [Create RNN w/ TF](create-rnn-w-tf.md)
 
