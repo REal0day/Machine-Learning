@@ -13,7 +13,7 @@ Create a class that allows us to initialize the data and send batches back.
 
 ```py
 class TimeSeriesData():
-    
+
     def __init__(self, num_points, xmin, xmax):
         self.xmin = xmin
         self.xmax = xmax
@@ -21,10 +21,10 @@ class TimeSeriesData():
         self.resolution = (xmax - xmin) / num_points # how fine of a resolution are we creating
         self.x_data = np.linspace(xmin, xmax, num_points)
         self.y_true = np.sin(self.x_data)
-    
+
     def ret_true(self, x_series):
         return np.sing(x_series)
-    
+
     def next_batch(self, batch_size, steps, return_batch_ts=False):
         # Grab a random starting point for each batch of data
         rand_start = np.random.rand(batch_size, 1)
@@ -44,7 +44,7 @@ class TimeSeriesData():
         return y_batch[:,:-1].reshape(-1, steps, 1), y_batch[:,1:].reshape(-1, steps, 1)
 ```
 
-So far, we have a timeseries class that takes in the number of points wanted, and the xmin and xmax. It then creates a bunch of attributes to store information. It creates the resolution , x_data, and y_true. y\_true takes in x\_data through the numpy sin function.
+So far, we have a timeseries class that takes in the number of points wanted, and the xmin and xmax. It then creates a bunch of attributes to store information. It creates the resolution , x\_data, and y\_true. y\_true takes in x\_data through the numpy sin function.
 
 We will also create a convience method called **return true.** it takes in any series of x values and will return np.This will makes things easier.
 
@@ -147,8 +147,7 @@ plt.tight_layout()
 
 ![](/assets/Screen Shot 2018-02-02 at 10.28.36 PM.png)
 
-So we are trying to predict a time-series shifted by 1 step.  
-
+So we are trying to predict a time-series shifted by 1 step.
 
 ### Create Training Data
 
@@ -184,4 +183,81 @@ plt.plot(train_inst[1:], ts_data.ret_true(train_inst[1:]), 'ko', markersize=7, l
 ![](/assets/Screen Shot 2018-02-02 at 10.44.05 PM.png)
 
 Given the blue points, can you predict the black points?
+
+---
+
+## Creating the Model
+
+Let's restart our graph
+
+```py
+tf.reset_default_graph()
+```
+
+#### Create a variable for the number of features
+
+```
+
+```
+
+
+
+
+
+
+
+# Generating New Sequences {#Generating-New-Sequences}
+
+After that, we will give it a seed series, and ask it to predict a new sequence.Here, we feed it zeros. It's passing this off of what it knows about the sin\(x\). We
+
+```py
+with tf.Session() as sess:
+    saver.restore(sess, "./rnn_time_series_model")
+
+    # SEED WITH ZEROS
+    zero_seq_seed = [0. for i in range(num_time_steps)]
+    for iteration in range(len(ts_data.x_data) - num_time_steps):
+        X_batch = np.array(zero_seq_seed[-num_time_steps:]).reshape(1, num_time_steps, 1)
+        y_pred = sess.run(outputs, feed_dict={X: X_batch})
+        zero_seq_seed.append(y_pred[0, -1, 0])
+```
+
+We first restore our model. Create 30 zero sequence seed, or the num\_time\_steps.
+
+**X\_batch** = create new batch. pass in zero sequence array, going backward to the amount of the number of steps. and then we reshape it for the RNN. _  
+_**y\_batch **= run the output, passing in the X:X\_batch we created.  
+**zero\_seq\_seed **= append the new values to the zero\_seq\_seed At the ery end, we should ahve 30 zeros and then the generated values.
+
+Now time to plot.
+
+```py
+plt.plot(ts_data.x_data, zero_seq_seed, "b-")
+plt.plot(ts_data.x_data[:num_time_steps], zero_seq_seed[:num_time_steps], "r", linewidth=3)
+plt.xlabel("Time")
+plt.ylabel("Value")
+```
+
+![](/assets/download.png)
+
+```py
+with tf.Session() as sess:
+    saver.restore(sess, "./rnn_time_series_model")
+
+    # SEED WITH Training Instance
+    training_instance = list(ts_data.y_true[:30])
+    for iteration in range(len(training_instance) -num_time_steps):
+        X_batch = np.array(training_instance[-num_time_steps:]).reshape(1, num_time_steps, 1)
+        y_pred = sess.run(outputs, feed_dict={X: X_batch})
+        training_instance.append(y_pred[0, -1, 0])
+```
+
+Plot
+
+```py
+plt.plot(ts_data.x_data, ts_data.y_true, "b-")
+plt.plot(ts_data.x_data[:num_time_steps],training_instance[:num_time_steps], "r-", linewidth=3)
+plt.xlabel("Time")
+```
+
+![](/assets/download-1.png)
 
