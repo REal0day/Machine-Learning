@@ -27,4 +27,5 @@
 * [LSTM and GRU](lstm-and-gru.md)
 * [RNN with TF](rrn-with-tf.md)
 * [Create RNN w/ TF](create-rnn-w-tf.md)
+* [Time Series Exercise](time-series-exercise.md)
 
