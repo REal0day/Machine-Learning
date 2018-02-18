@@ -197,14 +197,19 @@ tf.reset_default_graph()
 ```py
 # Just one feature, the time series
 num_inputs = 1
+
 # 100 neuron layer, play with this
 num_neurons = 100
+
 # Just one output, predicted time series
 num_outputs = 1
+
 # learning rate, 0.0001 default, but you can play with this
 learning_rate = 0.0001
+
 # how many iterations to go through (training steps), you can play with this
 num_train_iterations = 2000
+
 # Size of the batch of data
 batch_size = 1
 ```
@@ -283,42 +288,42 @@ Session!
 ```py
 with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
     sess.run(init)
-    
+
     for iteration in range(num_train_iterations):
-        
+
         X_batch, y_batch = ts_data.next_batch(batch_size, num_time_steps)
         sess.run(train, feed_dict={X: X_batch, y: y_batch})
-        
+
         if iteration % 100 == 0:
-            
+
             mse = loss.eval(feed_dict={X: X_batch, y: y_batch})
             print(iteration, "\tMSE:", mse)
-    
+
     # Save Model for Later
     saver.save(sess, "./rnn_time_series_model")
 ```
 
 ```py
-0 	MSE: 0.418418
-100 	MSE: 0.0503464
-200 	MSE: 0.0509452
-300 	MSE: 0.00751106
-400 	MSE: 0.0235597
-500 	MSE: 0.0229088
-600 	MSE: 0.00144745
-700 	MSE: 0.0304383
-800 	MSE: 0.00336185
-900 	MSE: 0.00579273
-1000 	MSE: 0.00723241
-1100 	MSE: 0.00245652
-1200 	MSE: 0.00164544
-1300 	MSE: 0.00314354
-1400 	MSE: 0.00105241
-1500 	MSE: 0.000656848
-1600 	MSE: 0.00864561
-1700 	MSE: 0.00708487
-1800 	MSE: 0.00842478
-1900 	MSE: 0.000408624
+0     MSE: 0.418418
+100     MSE: 0.0503464
+200     MSE: 0.0509452
+300     MSE: 0.00751106
+400     MSE: 0.0235597
+500     MSE: 0.0229088
+600     MSE: 0.00144745
+700     MSE: 0.0304383
+800     MSE: 0.00336185
+900     MSE: 0.00579273
+1000     MSE: 0.00723241
+1100     MSE: 0.00245652
+1200     MSE: 0.00164544
+1300     MSE: 0.00314354
+1400     MSE: 0.00105241
+1500     MSE: 0.000656848
+1600     MSE: 0.00864561
+1700     MSE: 0.00708487
+1800     MSE: 0.00842478
+1900     MSE: 0.000408624
 ```
 
 ### Predicting a time series t+1 {#Predicting-a-time-series-t+1}
@@ -374,7 +379,7 @@ with tf.Session() as sess:
 
 We first restore our model. Create 30 zero sequence seed, or the num\_time\_steps.
 
-**X\_batch** = create new batch. pass in zero sequence array, going backward to the amount of the number of steps. and then we reshape it for the RNN. _      
+**X\_batch** = create new batch. pass in zero sequence array, going backward to the amount of the number of steps. and then we reshape it for the RNN. _        
 _**y\_batch **= run the output, passing in the X:X\_batch we created.  
 **zero\_seq\_seed **= append the new values to the zero\_seq\_seed At the ery end, we should ahve 30 zeros and then the generated values.
 
